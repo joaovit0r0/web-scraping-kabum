@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  app:
+    build: ./node
+    command: "npm start"
+    ports:
+      - "3030:3030"
+    volumes:
+      - ".:/user/app"
+    networks:
+      - app-network
+
+  python-app:
+    build: ./scraping
+    depends_on:
+      - app
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

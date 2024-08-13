@@ -1,0 +1,14 @@
+FROM node:alpine
+
+WORKDIR /usr/app
+
+# Cria o diretório se não existir e copia o package.json
+RUN mkdir -p /usr/app && chown -R node:node /usr/app
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
+EXPOSE 3030
+
+CMD ["npm", "start"]
